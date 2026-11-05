@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pav Rao</title>
+<meta name="description" content="I've been a developer, a copywriter, a stand-up comedian and a few other things. Product management is where they all meet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Karla:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+/* Layout: a paper-cut figure on a green cutting mat. Phone: full-width strips, tap for a bottom sheet. Laptop: strips on the left half, each strip's story lined up beside it on the right. Case studies are the only paper objects on the mat. */
+:root{
+  --mat:#2f5a48; --mat-line:#3d6b58; --mat-line-strong:#4f7d69;
+  --paper:#f4efe3; --folder:#e8d3a0; --folder-edge:#cdb377; --ink:#1f2622; --ink-soft:#56605a;
+  --stamp:#c8361f; --chalk:#e9f0e8; --chalk-soft:#b7cbbf; --hi:#f2d36b; --link-ink:#8b2a17;
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Karla", "Helvetica Neue", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --gl:max(16px, env(safe-area-inset-left, 0px));
+  --gr:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: dark;
+}
+html{background:var(--mat)}
+body{
+  background-color:var(--mat);
+  background-image:
+    linear-gradient(var(--mat-line-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-line-strong) 1px, transparent 1px),
+    linear-gradient(var(--mat-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-line) 1px, transparent 1px);
+  background-size:160px 160px,160px 160px,32px 32px,32px 32px;
+  color:var(--chalk); font-family:var(--body); font-size:16px; line-height:1.5;
+  padding-left:var(--gl); padding-right:var(--gr);
+  padding-block:0 64px;
+}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--hi); outline-offset:2px}
+
+.ticket{
+  position:fixed; top:calc(10px + env(safe-area-inset-top, 0px)); right:calc(12px + env(safe-area-inset-right, 0px));
+  z-index:20; background:#efe2b8; color:#2a2416; text-decoration:none;
+  font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  padding:8px 16px; transform:rotate(3deg); box-shadow:0 3px 6px rgba(8,25,18,.45);
+  -webkit-mask: radial-gradient(circle 5px at 0 50%, transparent 98%, #000), radial-gradient(circle 5px at 100% 50%, transparent 98%, #000);
+  -webkit-mask-composite: source-in; mask-composite:intersect;
+}
+
+header.intro{max-width:34rem; margin:0 auto; padding-top:40px}
+.name{font-family:var(--mono); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--chalk-soft); margin:0}
+h1{font-family:var(--display); font-weight:400; font-size:clamp(1.6rem, 5.4vw, 2.4rem); line-height:1.15; margin:.35em 0 .4em; text-wrap:balance; color:var(--chalk)}
+h1 em{font-style:normal; color:var(--hi)}
+.nw{white-space:nowrap}
+.hint{font-size:14px; color:var(--chalk-soft); margin:0}
+.hint .wide{display:none}
+
+/* Strips */
+.board{--fw:min(460px, 88vw); position:relative; margin-top:24px; margin-left:calc(-1 * var(--gl)); margin-right:calc(-1 * var(--gr))}
+.row + .row{margin-top:3px}
+.strip{position:relative; min-width:0}
+.track{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; overscroll-behavior-x:contain}
+.track::-webkit-scrollbar{display:none}
+.panel{flex:0 0 100%; scroll-snap-align:center; border:0; padding:0; margin:0; background:transparent; cursor:pointer; display:block; position:relative; box-shadow:0 3px 6px rgba(8,25,18,.35)}
+.panel svg{display:block; width:100%; height:100%}
+.panel .cap{position:absolute; left:calc(12px + env(safe-area-inset-left, 0px)); bottom:8px; max-width:calc(100% - 24px); font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; background:rgba(255,255,255,.88); color:var(--ink); padding:3px 7px; text-align:left}
+.panel .cap b{font-weight:600}
+.arrow{position:absolute; top:50%; transform:translateY(-50%); z-index:2; width:40px; height:40px; border-radius:50%; border:0; background:rgba(20,45,35,.72); color:var(--chalk); font-family:var(--mono); font-size:18px; cursor:pointer; display:grid; place-items:center; box-shadow:0 2px 5px rgba(0,0,0,.3)}
+.arrow.prev{left:calc(10px + env(safe-area-inset-left, 0px))}
+.arrow.next{right:10px}
+.arrow:hover{background:rgba(20,45,35,.92)}
+.note{display:none}
+
+.stamp{
+  position:absolute; left:50%; top:46%; transform:translate(-50%,-50%) rotate(-12deg);
+  font-family:var(--mono); font-weight:600; font-size:clamp(28px, 9vw, 40px); letter-spacing:.18em;
+  color:var(--stamp); border:4px double var(--stamp); padding:4px 14px 4px 20px;
+  background:rgba(244,239,227,.18); pointer-events:none; mix-blend-mode:multiply;
+  transition:opacity .25s, transform .25s;
+}
+.stamp[data-on="false"]{opacity:0; transform:translate(-50%,-50%) rotate(-12deg) scale(1.35)}
+
+.readout{max-width:34rem; margin:18px auto 0; text-align:center}
+.jobtitle{font-family:var(--display); font-size:clamp(1.25rem, 4.6vw, 1.6rem); line-height:1.2; margin:0; text-wrap:balance; min-height:2.4em}
+.status{font-size:14px; color:var(--chalk-soft); margin:.3em 0 0}
+
+/* Phone detail sheet */
+.sheet{position:fixed; left:0; right:0; bottom:0; z-index:30; background:var(--paper); color:var(--ink);
+  padding:16px max(20px, env(safe-area-inset-right, 0px)) calc(22px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px));
+  box-shadow:0 -6px 18px rgba(0,0,0,.35); max-height:70vh; overflow:auto}
+.sheet-top{display:flex; justify-content:space-between; align-items:start; gap:12px}
+.close{border:1px solid var(--ink-soft); background:transparent; color:var(--ink); font-family:var(--mono); font-size:12px; padding:6px 10px; cursor:pointer}
+
+/* Shared life text (sheet + laptop notes) */
+.eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; margin:0}
+.skill{font-family:var(--display); font-weight:400; font-size:1.45rem; line-height:1.2; margin:.15em 0 .35em; text-wrap:balance}
+.life p{margin:0 0 .5em}
+.sheet .eyebrow{color:var(--ink-soft)}
+.sheet .life a{color:var(--link-ink); font-weight:600}
+
+/* Case studies: the only paper objects on the mat */
+section.block{max-width:34rem; margin:56px auto 0}
+section.block > h2{font-family:var(--display); font-weight:400; font-size:1.6rem; margin:0 0 .25em}
+section.block > p.lede{color:var(--chalk-soft); margin:0 0 20px}
+.folders{display:grid; grid-template-columns:1fr; gap:34px 22px}
+.folder{position:relative; background:var(--folder); color:var(--ink); padding:20px 20px 18px; box-shadow:0 5px 12px rgba(8,25,18,.45); margin-top:18px}
+.folder::before{content:""; position:absolute; left:0; top:-18px; width:42%; height:19px; background:var(--folder); border-radius:6px 6px 0 0}
+.folder .tab{position:absolute; left:14px; top:-15px; font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft)}
+.folder h3{font-family:var(--display); font-weight:400; font-size:1.25rem; line-height:1.25; margin:0 0 .6em; text-wrap:balance}
+.folder dl{margin:0; display:grid; gap:8px}
+.folder dt{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft)}
+.folder dd{margin:0 0 4px}
+.chip{display:inline-block; margin-top:12px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--folder-edge); background:#f3e6c2; padding:3px 8px}
+
+/* CV: plain text on the mat, no box */
+.cvlist{list-style:none; padding:0; margin:0; display:grid; gap:14px}
+.cvlist li{display:grid; grid-template-columns:1fr; gap:2px; border-top:1px solid var(--mat-line-strong); padding-top:12px}
+.cvlist b{font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--hi)}
+.links{margin-top:10px}
+.links p{margin:0 0 .3em}
+.links a{color:var(--hi); font-weight:600}
+.contacts{display:grid; gap:8px; margin:0 0 26px}
+.contact{display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px}
+.clabel{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--chalk-soft); width:5.5rem}
+.cval{font-weight:600; color:var(--chalk); user-select:all; overflow-wrap:anywhere}
+a.cval{color:var(--hi); user-select:auto}
+.copy{border:1px solid var(--mat-line-strong); background:rgba(20,45,35,.6); color:var(--chalk); font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:4px 10px; cursor:pointer}
+.copy:hover{background:rgba(20,45,35,.9)}
+
+@media (min-width:640px){ .folders{grid-template-columns:1fr 1fr} section.block{max-width:52rem} .cvlist li{grid-template-columns:14rem minmax(0,1fr); gap:16px} }
+
+/* Laptop: strips left, stories right */
+@media (min-width:1000px){
+  header.intro{max-width:none; margin:0; width:50%; padding-left:max(0px, calc(25% - var(--fw) / 2 - var(--gl)))}
+  .board{--fw:min(420px, 40vw); margin-right:0}
+  .row{display:grid; grid-template-columns:50% 50%; align-items:center}
+  .note{display:block; padding:6px 0 6px 44px; max-width:30rem}
+  .note .eyebrow{color:var(--chalk-soft)}
+  .note .skill{color:var(--chalk)}
+  .note p{font-size:15px; color:var(--chalk)}
+  .note a{color:var(--hi); font-weight:600}
+  .note.flash{animation:flash .6s ease}
+  .panel .cap{display:none}
+  .stamp{left:25%}
+  .readout{width:50%; max-width:none; margin-left:0}
+  .hint .narrow{display:none}
+  .hint .wide{display:inline}
+  .sheet{display:none}
+}
+@keyframes flash{0%{opacity:.2; transform:translateX(-6px)} 100%{opacity:1; transform:none}}
+@media (prefers-reduced-motion: reduce){ .stamp{transition:none} .note.flash{animation:none} }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="cut" x="-10%" y="-10%" width="125%" height="125%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+      <feDropShadow dx="2" dy="3" stdDeviation="1.6" flood-color="#0b1f17" flood-opacity=".5"/>
+    </filter>
+    <pattern id="p-graph" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#f5f6ee"/>
+      <path d="M10 0V40M20 0V40M30 0V40M0 10H40M0 20H40M0 30H40" stroke="#bcd4e2" stroke-width=".5"/>
+      <path d="M0 0V40M0 0H40" stroke="#8fb5cb" stroke-width="1"/>
+    </pattern>
+    <pattern id="p-greenbar" width="300" height="24" patternUnits="userSpaceOnUse">
+      <rect width="300" height="12" fill="#d7ecd2"/><rect y="12" width="300" height="12" fill="#fafcf5"/>
+    </pattern>
+    <pattern id="p-half" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+      <rect width="7" height="7" fill="#f3e4c8"/><circle cx="3.5" cy="3.5" r="1.6" fill="#d9472b"/>
+    </pattern>
+    <pattern id="p-xerox" width="9" height="9" patternUnits="userSpaceOnUse">
+      <rect width="9" height="9" fill="#ecebe4"/>
+      <circle cx="2" cy="3" r=".55" fill="#2a2a28" opacity=".55"/><circle cx="6.5" cy="7" r=".45" fill="#2a2a28" opacity=".5"/><circle cx="7.2" cy="1.2" r=".35" fill="#2a2a28" opacity=".6"/>
+    </pattern>
+    <pattern id="p-dots" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="#fbfcfc"/><circle cx="6" cy="6" r=".9" fill="#c4cfd7"/>
+    </pattern>
+  </defs>
+</svg>
+
+<a class="ticket" href="#cv">Just the CV</a>
+
+<header class="intro">
+  <p class="name">Pav Rao</p>
+  <h1>I've been a developer, a copywriter, a <span class="nw">stand-up</span> comedian and a few other things. <em>Product management is where they all meet.</em></h1>
+  <p class="hint"><span class="narrow">Swipe each strip to mix me up. Tap a strip to see what that life taught me.</span><span class="wide">Swipe or use the arrows to mix me up. What each strip taught me changes beside it.</span></p>
+</header>
+
+<div class="board" id="board">
+  <div id="rows"></div>
+  <div class="stamp" id="stamp" data-on="true" aria-hidden="true">PRODUCT</div>
+</div>
+
+
+<aside class="sheet" id="sheet" hidden aria-label="What this life taught me">
+  <div class="sheet-top">
+    <p class="eyebrow" id="sheetFrom"></p>
+    <button class="close" id="sheetClose" type="button">Close</button>
+  </div>
+  <div class="life" id="sheetBody"></div>
+</aside>
+
+<section class="block" id="work">
+  <h2>Case studies</h2>
+  <div class="folders">
+    <article class="folder">
+      <span class="tab">Build</span>
+      <h3>My training app: when a spreadsheet stops being enough</h3>
+      <dl>
+        <dt>The question</dt><dd>How do you plan and log every kind of workout in one place?</dd>
+        <dt>What I did</dt><dd>Built my own app with Claude, for one very demanding user: me.</dd>
+      </dl>
+      <span class="chip">Write-up coming</span>
+    </article>
+    <article class="folder">
+      <span class="tab">Build</span>
+      <h3>World news digest: voices the Western press rarely hears</h3>
+      <dl>
+        <dt>The question</dt><dd>How do you put non-Western perspectives in front of readers every week?</dd>
+        <dt>What I'm doing</dt><dd>A weekly digest, built and tested as I go.</dd>
+      </dl>
+      <span class="chip">In progress</span>
+    </article>
+  </div>
+</section>
+
+<section class="block" id="cv">
+  <h2>Just the CV</h2>
+  <p class="lede">Pav Rao, London. Looking for associate product manager roles.</p>
+  <div class="contacts">
+    <div class="contact"><span class="clabel">Email</span><span class="cval" id="c-email">pav0107@gmail.com</span></div>
+    <div class="contact"><span class="clabel">Phone</span><span class="cval" id="c-phone">07799 113911</span></div>
+    <div class="links">
+      <p><a href="https://www.linkedin.com/in/pav-rao/" target="_blank" rel="noopener">LinkedIn</a></p>
+      <p><a href="https://github.com/pav0107" target="_blank" rel="noopener">GitHub</a></p>
+      <p><a href="https://pavrao.uk" target="_blank" rel="noopener">Advertising work</a></p>
+      <p><a href="https://vimeo.com/314071085" target="_blank" rel="noopener">Stand-up</a></p>
+    </div>
+  </div>
+  <ul class="cvlist">
+    <li><b>Prototyping</b><span>Builds products with AI, including a personal training app and automated weekly digests for AI, Product Management and global news using Claude and Gmail.</span></li>
+    <li><b>Working with engineers</b><span>Full-stack developer at Mumsnet, one of the UK's largest online communities with 32 million monthly visitors. Worked in a small Agile team alongside product managers and designers.</span></li>
+    <li><b>Product training</b><span>King's College London Product Management Career Accelerator, November 2026 to May 2027, including a six-week Employer Project.</span></li>
+    <li><b>Discovery and insight</b><span>Senior advertising creative for clients including Honda, Nokia, Google, Macmillan Cancer Support, RSPB and Reprieve. Used research, case studies and interviews to find the insight behind the work.</span></li>
+    <li><b>Selling ideas</b><span>Pitched work to senior clients and internal teams, handling feedback and objections to get work bought.</span></li>
+    <li><b>Testing and iterating</b><span>Performed stand-up comedy to audiences of up to 500, winning the Bath Comedy Festival New Act of the Year competition and getting to the semi-final of the BBC New Comedy Awards. Audience feedback (sometimes warm, sometimes brutal, always unfiltered) led to dozens of rewrites to hit the sweet spot.</span></li>
+    <li><b>Data and analysis</b><span>Studied Physics with Astrophysics MSci at the University of Bristol, which meant four years in a world almost exclusively filled with numbers and Greek letters. It also meant an understanding of methods, predictions, repeatable results and analysis.</span></li>
+  </ul>
+</section>
+
+<script>
+const LIVES = [
+  { id:"maths", name:"Maths and physics", skill:"Data and analysis",
+    adj:"Statistical", job:"Physicist", twist:"with Workings",
+    what:"MSci in Physics with Astrophysics from the University of Bristol. I trust evidence over opinion and I'm comfortable with numbers, experiments and metrics.",
+    proof:"Coming: a product teardown with the numbers I'd track." },
+  { id:"dev", name:"Developer", skill:"Working with engineers",
+    adj:"Debugging", job:"Engineer", twist:"in Production",
+    what:"Full-stack developer at Mumsnet, which has 32 million monthly visitors. I worked in a small Agile team with PMs and designers, so I know what engineers need from a PM.",
+    proof:'<a href="https://github.com/pav0107" target="_blank" rel="noopener">See my old code on GitHub</a>' },
+  { id:"copy", name:"Copywriter", skill:"Discovery and insight",
+    adj:"Persuasive", job:"Copywriter", twist:"of Few Words",
+    what:"Senior advertising creative for Honda, Nokia, Google, Macmillan and more. Research and interviews helped find the insight.",
+    proof:'<a href="https://pavrao.uk" target="_blank" rel="noopener">See the advertising work</a>' },
+  { id:"comic", name:"Stand-up comedian", skill:"Testing and iterating",
+    adj:"Heckled", job:"Comedian", twist:"on Tour",
+    what:"An award-winning stand-up comedian, I constantly refined routines by recording every gig and listening back to understand what worked, what didn't and why.",
+    proof:'<a href="https://vimeo.com/314071085" target="_blank" rel="noopener">Watch the set</a>' },
+  { id:"builder", name:"Builder", skill:"Prototyping",
+    adj:"Prompting", job:"Builder", twist:"after Hours",
+    what:"I build my own products with Claude: a training app that replaced my spreadsheet, and automated weekly digests for AI, product management and global news.",
+    proof:'<a href="#work">See the case studies</a>' }
+];
+const SLICES = [ {key:"head", label:"Head", y:0, h:150}, {key:"body", label:"Body", y:150, h:180}, {key:"legs", label:"Legs", y:330, h:190} ];
+const state = { idx:[2,3,1] };
+const wide = matchMedia("(min-width:1000px)");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function silhouette(fill, ink, shoe){
+  return `<g filter="url(#cut)" stroke="${ink}" stroke-width="2" stroke-linejoin="round">
+    <rect x="57" y="162" width="25" height="150" rx="11" fill="${fill}"/>
+    <rect x="218" y="162" width="25" height="150" rx="11" fill="${fill}"/>
+    <circle cx="69.5" cy="318" r="12" fill="${fill}"/><circle cx="230.5" cy="318" r="12" fill="${fill}"/>
+    <rect x="102" y="326" width="45" height="176" rx="6" fill="${fill}"/>
+    <rect x="153" y="326" width="45" height="176" rx="6" fill="${fill}"/>
+    <ellipse cx="118" cy="505" rx="27" ry="11" fill="${shoe}"/><ellipse cx="182" cy="505" rx="27" ry="11" fill="${shoe}"/>
+    <path d="M82 160 Q150 146 218 160 L206 332 L94 332 Z" fill="${fill}"/>
+    <rect x="135" y="122" width="30" height="34" fill="${fill}"/>
+    <ellipse cx="150" cy="75" rx="48" ry="56" fill="${fill}"/>
+  </g>
+  <g fill="${ink}"><ellipse cx="132" cy="74" rx="4" ry="5"/><ellipse cx="168" cy="74" rx="4" ry="5"/></g>
+  <path d="M136 100 Q150 110 164 100" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/>`;
+}
+const DETAILS = {
+  maths: (ink) => `
+    <path d="M106 34 q8 -16 22 -8 q6 -14 22 -6 q12 -12 24 0 q12 -4 16 12" fill="none" stroke="${ink}" stroke-width="1.6"/>
+    <path d="M110 38 q10 -10 18 -4 q10 -8 20 -2 q12 -8 22 2" fill="none" stroke="${ink}" stroke-width="1" opacity=".7"/>
+    <g fill="none" stroke="${ink}" stroke-width="2"><circle cx="132" cy="74" r="12"/><circle cx="168" cy="74" r="12"/><path d="M144 74 h12"/></g>
+    <g font-family="IBM Plex Mono, monospace" font-size="11" fill="${ink}">
+      <text x="110" y="205">dy/dt = k·y</text><text x="110" y="228">σ² = Σ(x−μ)²/n</text><text x="110" y="251">p &lt; 0.05 ✓</text>
+    </g>
+    <circle cx="186" cy="296" r="15" fill="none" stroke="#8a5a2b" stroke-width="2.5" opacity=".45"/>
+    <g stroke="${ink}" stroke-width="1">${Array.from({length:19},(_,i)=>`<path d="M103 ${338+i*8} h${i%5===0?12:6}"/>`).join("")}</g>`,
+  dev: (ink) => `
+    <path d="M100 66 Q100 10 150 10 Q200 10 200 66" fill="none" stroke="#1c2a22" stroke-width="7"/>
+    <rect x="92" y="58" width="14" height="30" rx="5" fill="#1c2a22"/><rect x="194" y="58" width="14" height="30" rx="5" fill="#1c2a22"/>
+    <g fill="#f6f8f2" stroke="${ink}" stroke-width=".8">${[0,1,2,3,4,5,6,7,8].map(i=>`<circle cx="69.5" cy="${175+i*16}" r="3.2"/><circle cx="230.5" cy="${175+i*16}" r="3.2"/>`).join("")}</g>
+    <g font-family="IBM Plex Mono, monospace" font-size="11" fill="${ink}">
+      <text x="108" y="204">if (bug) {</text><text x="118" y="222">fix();</text><text x="108" y="240">}</text><text x="108" y="262">ship(v2);</text><text x="108" y="288" opacity=".7">// TODO sleep</text>
+      <text x="110" y="372">for(;;)</text><text x="160" y="410">} // end</text>
+    </g>`,
+  copy: (ink) => `
+    <path d="M104 52 Q108 14 150 16 Q194 14 197 50 Q178 30 150 32 Q122 30 104 52 Z" fill="#1d1d1b"/>
+    <g transform="rotate(-28 200 50)"><rect x="186" y="44" width="40" height="7" fill="#f2c434" stroke="${ink}" stroke-width="1"/><rect x="226" y="44" width="6" height="7" fill="#e58aa2" stroke="${ink}" stroke-width="1"/><path d="M186 44 l-8 3.5 l8 3.5z" fill="#d9b48a" stroke="${ink}" stroke-width="1"/></g>
+    <rect x="102" y="188" width="96" height="58" fill="#fbf5ea" opacity=".92"/>
+    <text x="150" y="214" text-anchor="middle" font-family="Young Serif, Georgia, serif" font-size="21" fill="#1d1d1b">Say less.</text>
+    <text x="150" y="234" text-anchor="middle" font-family="Karla, Arial, sans-serif" font-size="9" fill="#1d1d1b" letter-spacing=".5">MEAN MORE.</text>
+    <g stroke="#1d1d1b" stroke-width="1.2" opacity=".55">${[0,1,2,3,4,5,6,7].map(i=>`<path d="M110 ${352+i*9} h${28+(i%3)*4}"/><path d="M161 ${352+i*9} h${30-(i%2)*6}"/>`).join("")}</g>`,
+  comic: (ink) => `
+    <ellipse cx="150" cy="70" rx="80" ry="78" fill="#fff9d8" opacity=".35"/>
+    <path d="M104 46 l8 -18 l6 12 l8 -20 l8 16 l8 -22 l8 18 l8 -16 l6 18 l8 -12 l6 22 Q150 30 104 46Z" fill="#141414"/>
+    <rect x="96" y="196" width="108" height="46" fill="#141414"/>
+    <text x="150" y="216" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="15" fill="#ecebe4" letter-spacing="3">LIVE</text>
+    <text x="150" y="234" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#ecebe4" letter-spacing="2">TONIGHT</text>
+    <g fill="#9a9a94"><rect x="96" y="168" width="10" height="3"/><rect x="194" y="168" width="10" height="3"/></g>
+    <path d="M232 312 L240 270" stroke="#141414" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="242" cy="262" r="10" fill="#2a2a28" stroke="#141414" stroke-width="2"/>
+    <text x="124" y="420" text-anchor="middle" transform="rotate(-90 124 420)" font-family="IBM Plex Mono, monospace" font-size="10" fill="#141414" letter-spacing="2">ADMIT ONE</text>`,
+  builder: (ink) => `
+    <path d="M102 50 Q104 16 150 16 Q196 16 198 50 L198 44 Q150 30 102 44Z" fill="#1e8a7a"/>
+    <rect x="96" y="40" width="108" height="8" rx="4" fill="#176f62"/>
+    <rect x="112" y="196" width="76" height="26" rx="13" fill="#1e8a7a"/>
+    <text x="150" y="213" text-anchor="middle" font-family="Karla, Arial, sans-serif" font-weight="600" font-size="11" fill="#ffffff">Ship it</text>
+    <path d="M176 214 l0 18 l5 -5 l4 9 l3 -1.5 l-4 -9 l7 0 z" fill="#ffffff" stroke="${ink}" stroke-width="1.2" stroke-linejoin="round"/>
+    <rect x="112" y="252" width="76" height="7" rx="3.5" fill="#dfe6ea"/><rect x="112" y="252" width="54" height="7" rx="3.5" fill="#1e8a7a"/>
+    <text x="112" y="276" font-family="IBM Plex Mono, monospace" font-size="9" fill="${ink}">build 0.7 · 3 users</text>
+    <g font-family="Karla, Arial, sans-serif" font-size="9" fill="${ink}">
+      ${[0,1,2].map(i=>`<rect x="108" y="${356+i*26}" width="12" height="12" rx="3" fill="#fff" stroke="${ink}"/><path d="M110.5 ${362+i*26} l3 3 l5 -6" stroke="#1e8a7a" stroke-width="2" fill="none"/>`).join("")}
+      <text x="160" y="368">Log</text><text x="160" y="394">Plan</text><text x="160" y="420">Repeat</text>
+    </g>`
+};
+const STYLE = {
+  maths:{fill:"url(#p-graph)", ink:"#454b52", shoe:"#7d8790"},
+  dev:{fill:"url(#p-greenbar)", ink:"#2f5a3a", shoe:"#1c2a22"},
+  copy:{fill:"url(#p-half)", ink:"#1d1d1b", shoe:"#c7361c"},
+  comic:{fill:"url(#p-xerox)", ink:"#141414", shoe:"#141414"},
+  builder:{fill:"url(#p-dots)", ink:"#23313b", shoe:"#1e8a7a"}
+};
+function figure(life, slice){
+  const s = STYLE[life.id];
+  const bg = `<rect x="-4000" y="${slice.y-4}" width="8300" height="${slice.h+8}" fill="${s.fill}"/><rect x="-4000" y="${slice.y-4}" width="8300" height="${slice.h+8}" fill="#0b1f17" opacity=".09"/>`;
+  return `<svg viewBox="0 ${slice.y} 300 ${slice.h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${life.name} ${slice.label.toLowerCase()}" xmlns="http://www.w3.org/2000/svg">${bg}${silhouette(s.fill, s.ink, s.shoe)}${DETAILS[life.id](s.ink)}</svg>`;
+}
+function lifeHTML(L){
+  return `<p class="eyebrow">From: ${L.name}</p><h3 class="skill">${L.skill}</h3><p>${L.what}</p><p>${L.proof}</p>`;
+}
+
+const rowsEl = document.getElementById("rows");
+const tracks = [], notes = [];
+SLICES.forEach((slice, si) => {
+  const row = document.createElement("div"); row.className = "row";
+  const strip = document.createElement("div"); strip.className = "strip";
+  const prev = document.createElement("button"); prev.className = "arrow prev"; prev.type = "button"; prev.textContent = "‹"; prev.setAttribute("aria-label", `Previous ${slice.label.toLowerCase()}`);
+  const next = document.createElement("button"); next.className = "arrow next"; next.type = "button"; next.textContent = "›"; next.setAttribute("aria-label", `Next ${slice.label.toLowerCase()}`);
+  const track = document.createElement("div"); track.className = "track";
+  LIVES.forEach((life, li) => {
+    const p = document.createElement("button"); p.type = "button"; p.className = "panel";
+    p.style.height = `calc(var(--fw) * ${slice.h} / 300)`;
+    p.innerHTML = figure(life, slice) + `<span class="cap"><b>${life.skill}</b> · ${life.name}</span>`;
+    p.addEventListener("click", () => tapped(si, li));
+    track.appendChild(p);
+  });
+  const note = document.createElement("div"); note.className = "note life";
+  prev.addEventListener("click", () => go(si, state.idx[si] - 1));
+  next.addEventListener("click", () => go(si, state.idx[si] + 1));
+  let t; const settle = () => { const i = Math.round(track.scrollLeft / track.clientWidth); if (i !== state.idx[si]) { state.idx[si] = i; update(si); } };
+  track.addEventListener("scroll", () => { clearTimeout(t); t = setTimeout(settle, 90); }, {passive:true});
+  strip.append(prev, track, next); row.append(strip, note); rowsEl.appendChild(row);
+  tracks.push(track); notes.push(note);
+});
+
+function go(si, i){
+  const n = LIVES.length; i = (i + n) % n;
+  state.idx[si] = i;
+  tracks[si].scrollTo({left: i * tracks[si].clientWidth, behavior: reduce ? "auto" : "smooth"});
+  update(si);
+}
+function renderNote(si, flash){
+  const note = notes[si];
+  note.innerHTML = lifeHTML(LIVES[state.idx[si]]);
+  if (flash) { note.classList.remove("flash"); void note.offsetWidth; note.classList.add("flash"); }
+}
+function update(changed){
+  const [h,b,l] = state.idx;
+  const same = h === b && b === l;
+  document.getElementById("stamp").dataset.on = String(!same);
+  if (changed === undefined) [0,1,2].forEach(si => renderNote(si, false)); else renderNote(changed, true);
+}
+
+const sheet = document.getElementById("sheet");
+function tapped(si, li){
+  if (wide.matches) { renderNote(si, true); return; }
+  const L = LIVES[li];
+  document.getElementById("sheetFrom").textContent = `${SLICES[si].label} strip`;
+  document.getElementById("sheetBody").innerHTML = lifeHTML(L);
+  sheet.hidden = false;
+  document.getElementById("sheetClose").focus();
+}
+document.getElementById("sheetClose").addEventListener("click", () => { sheet.hidden = true; });
+document.addEventListener("keydown", e => { if (e.key === "Escape") sheet.hidden = true; });
+
+document.querySelectorAll(".copy").forEach(btn => btn.addEventListener("click", () => {
+  const el = document.getElementById(btn.dataset.target); const text = el.textContent;
+  const done = () => { btn.textContent = "Copied"; setTimeout(() => { btn.textContent = "Copy"; }, 1600); };
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Selected"; setTimeout(() => { btn.textContent = "Copy"; }, 1600); };
+  try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+}));
+
+function place(){ tracks.forEach((t, si) => { t.scrollLeft = state.idx[si] * t.clientWidth; }); }
+addEventListener("resize", place);
+wide.addEventListener?.("change", () => { sheet.hidden = true; requestAnimationFrame(place); });
+requestAnimationFrame(place);
+update();
+</script>
+
+</body>
+</html>
