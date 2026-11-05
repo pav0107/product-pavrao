@@ -74,6 +74,12 @@ figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
 .end a{color:var(--link-ink); font-weight:600}
 
 .shot.tall img{aspect-ratio:auto}
+.summary{margin:22px 0 0; padding:16px 18px; background:#efe4c4; border-left:4px solid #c9a95c; font-size:17px; line-height:1.55; max-width:44rem}
+.summary p{margin:0}
+.pair{display:grid; grid-template-columns:1fr; gap:18px; margin-top:6px}
+.pair .shot img{aspect-ratio:auto}
+.pair .label{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 6px}
+@media (min-width:760px){ .pair{grid-template-columns:1fr 1fr; align-items:start} }
 .sticky{position:sticky; top:24px}
 @media (min-width:900px){
   section.part.has-fig{grid-template-columns:minmax(0, 1fr) minmax(0, 1.05fr); gap:44px; align-items:start}
@@ -97,6 +103,7 @@ figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
     <div><dt>Built with</dt><dd>Claude and Gmail</dd></div>
     <div><dt>Status</dt><dd>Running weekly</dd></div>
   </dl>
+  <div class="summary"><p>Sixteen AI newsletters were burying an inbox I try to keep at zero. I had Claude turn each week's newsletters into one short Sunday email that leads with a single thing worth doing. After the first full week I split product management into its own roundup, because the two were doing different jobs.</p></div>
 
   <section class="part">
     <div class="text">
@@ -123,9 +130,11 @@ figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
       <h2>Decisions along the way</h2>
       <ul>
         <li><strong>One action, first.</strong> The roundup leads with the single thing worth doing, because that's what I'd actually act on.</li>
+        <li><strong>A three to five minute read.</strong> Long enough to be useful, short enough that I actually read it.</li>
+        <li><strong>Written for a non-technical reader.</strong> No sponsored sections, no heavy developer detail, no filler.</li>
         <li><strong>Practices before news.</strong> Headlines go stale in a week, but a better way of working lasts.</li>
-        <li><strong>Shaped for me.</strong> It frames tips for someone moving into product management. This week, for example, it suggested adding my target role to the notes I give AI tools.</li>
-        <li><strong>Separate roundups, not one big one.</strong> When I wanted a product management roundup, with London jobs at my level, I kept it separate from the AI one, and it arrives five minutes later on Sundays. A weekly world news digest followed. Mixing them would have made each one worse.</li>
+        <li><strong>Honest about limits.</strong> If a tool is "US only for now", the roundup says so.</li>
+        <li><strong>Safe clean-up.</strong> The AI folder is only cleared after the roundup has sent successfully, and anything in Interesting is never touched. If sending fails, nothing is deleted.</li>
       </ul>
     </div>
     <figure>
@@ -135,8 +144,20 @@ figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
 
   <section class="part">
     <div class="text">
+      <h2>How it changed</h2>
+      <p>The first full roundup mixed AI and product management newsletters, with a "For your PM brain" section added on. Reading it, I realised the two were doing different jobs. One keeps me up to date with AI. The other supports my move into product management, and it was going to grow with my course, interview prep and job listings. Squeezed into one email, both became longer and less focused.</p>
+      <p>So that night I split them. The AI roundup stays short, and product management gets its own email five minutes later, with course-related material, interview prep and London jobs at my level.</p>
+    </div>
+    <div class="pair">
+      <div class="shot"><p class="label">Before · 25 Oct</p><img src="images/ai-roundup-before.webp" width="960" height="869" alt="Excerpt from the 25 October roundup. The header lists sources including Lenny's and Peter Yang, and the email includes a section called For your PM brain, covering a product-market fit framework, MCP, agent-flation and agent permissions." loading="lazy"><figcaption>AI and product management in one email (excerpt)</figcaption></div>
+      <div class="shot"><p class="label">After · 1 Nov</p><img src="images/ai-roundup-after.webp" width="960" height="528" alt="Header and section list from the 1 November roundup: one thing this week, practices, tools, a prompt and headlines, with a note that product management now has its own roundup." loading="lazy"><figcaption>AI only, with product management moved to its own roundup</figcaption></div>
+    </div>
+  </section>
+
+  <section class="part">
+    <div class="text">
       <h2>Building it with Claude</h2>
-      <p>Claude helped me set up the whole thing, from the Gmail filter and folders to the weekly roundup itself. As with my training app, it was a conversation: I explained what I needed, we talked through the options, and I judged the results week by week.</p>
+      <p>Claude helped me set up the whole thing, from the Gmail filter and folders to the weekly roundup itself. I started with a one-off test run on five newsletters before switching it to a weekly schedule. Every decision on this page was mine. Claude built it, and I judged each version and said what to change.</p>
       <h2>What changed</h2>
       <p>It saves me time, and I'm more likely to actually read about what's happening in AI, because it arrives as one email I can get through. My inbox is a lot calmer too.</p>
     </div>
