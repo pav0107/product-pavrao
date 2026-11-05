@@ -258,7 +258,7 @@ const LIVES = [
   { id:"maths", name:"Maths and physics", skill:"Data and analysis",
     adj:"Statistical", job:"Physicist", twist:"with Workings",
     what:"MSci in Physics with Astrophysics from the University of Bristol. I trust evidence over opinion and I'm comfortable with numbers, experiments and metrics.",
-    proof:"Coming: a product teardown with the numbers I'd track." },
+    proof:"" },
   { id:"dev", name:"Developer", skill:"Working with engineers",
     adj:"Debugging", job:"Engineer", twist:"in Production",
     what:"Full-stack developer at Mumsnet, which has 32 million monthly visitors. I worked in a small Agile team with PMs and designers, so I know what engineers need from a PM.",
@@ -357,7 +357,7 @@ function figure(life, slice){
   return `<svg viewBox="0 ${slice.y} 300 ${slice.h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${life.name} ${slice.label.toLowerCase()}" xmlns="http://www.w3.org/2000/svg">${bg}${silhouette(s.fill, s.ink, s.shoe)}${DETAILS[life.id](s.ink)}</svg>`;
 }
 function lifeHTML(L){
-  return `<p class="eyebrow">From: ${L.name}</p><h3 class="skill">${L.skill}</h3><p>${L.what}</p><p>${L.proof}</p>`;
+  return `<p class="eyebrow">From: ${L.name}</p><h3 class="skill">${L.skill}</h3><p>${L.what}</p>${L.proof ? `<p>${L.proof}</p>` : ""}`;
 }
 
 const rowsEl = document.getElementById("rows");
