@@ -73,6 +73,8 @@ figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
 .end{margin-top:44px; padding-top:22px; border-top:1px solid var(--rule); display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:space-between}
 .end a{color:var(--link-ink); font-weight:600}
 
+.summary{margin:22px 0 0; padding:16px 18px; background:#efe4c4; border-left:4px solid #c9a95c; font-size:17px; line-height:1.55; max-width:44rem}
+.summary p{margin:0}
 @media (min-width:900px){
   section.part.has-fig{grid-template-columns:minmax(0, 1fr) minmax(0, 1.05fr); gap:44px; align-items:start}
 }
@@ -93,8 +95,10 @@ figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
     <div><dt>User</dt><dd>One: me</dd></div>
     <div><dt>Platform</dt><dd>Browser, on my laptop</dd></div>
     <div><dt>Built with</dt><dd>Claude</dd></div>
-    <div><dt>Status</dt><dd>In use, still iterating</dd></div>
+    <div><dt>Version control</dt><dd>GitHub</dd></div>
+    <div><dt>Status</dt><dd>Early days, still iterating</dd></div>
   </dl>
+  <div class="summary"><p>My training had outgrown the Excel spreadsheet I'd logged it in for years. I built a replacement with Claude for one user, me, starting with a HIIT timer and adding features only when I needed them. The key decision was what to leave out: no accounts, no phone version and no syncing, because I only train at home on my laptop.</p></div>
 
   <section class="part has-fig">
     <div class="text">
@@ -159,7 +163,14 @@ figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
   <section class="part">
     <div class="text">
       <h2>What changed</h2>
-      <p>The spreadsheet is retired. Logging a workout is quicker, and comparing one week with the next is much easier. It can't stop me being lazy or too busy, but it removes the excuses that came from the tool itself.</p>
+      <p>The spreadsheet is retired. I've only just started using the app day to day, but it should make logging a workout quicker and comparing one week with the next much easier. It can't stop me being lazy or too busy, but it removes the excuses that came from the tool itself.</p>
+      <h2>How I'll know it's working</h2>
+      <ul>
+        <li><strong>I log every session</strong> without going back to the spreadsheet.</li>
+        <li><strong>I train as often as I plan to,</strong> which the calendar makes easy to check.</li>
+        <li><strong>The weights I log go up</strong> over time on the strength sessions.</li>
+      </ul>
+      <p>If I find myself skipping the log or opening Excel again, that's the sign something needs fixing.</p>
       <h2>Still iterating</h2>
       <p>It isn't finished, and I don't expect it to be. I keep adjusting exercises, sessions and the way progress is shown as my training changes.</p>
     </div>
