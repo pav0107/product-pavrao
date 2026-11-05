@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My AI Roundup · Pav Rao</title>
+<meta name="description" content="How I turned sixteen AI newsletters into one weekly email I actually read.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Karla:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: the case study is the AI roundup folder opened out on the cutting mat. One paper sheet for reading; screenshots sit beside their sections on wide screens. */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+img{max-width:100%}
+:root{
+  --mat:#2f5a48; --mat-line:#3d6b58; --mat-line-strong:#4f7d69;
+  --sheet:#f6f0e1; --folder:#e8d3a0; --ink:#1f2622; --ink-soft:#5a625c; --rule:#d9cfb6;
+  --chalk:#e9f0e8; --chalk-soft:#b7cbbf; --hi:#f2d36b; --link-ink:#8b2a17;
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Karla", "Helvetica Neue", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+body{
+  background-color:var(--mat);
+  background-image:
+    linear-gradient(var(--mat-line-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-line-strong) 1px, transparent 1px),
+    linear-gradient(var(--mat-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-line) 1px, transparent 1px);
+  background-size:160px 160px,160px 160px,32px 32px,32px 32px;
+  color:var(--chalk); font-family:var(--body); font-size:17px; line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px 72px;
+}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--hi); outline-offset:2px}
+
+.top{max-width:68rem; margin:0 auto 34px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap}
+.back{font-family:var(--mono); font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--hi); text-decoration:none}
+.back:hover{text-decoration:underline}
+.who{font-family:var(--mono); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--chalk-soft); margin:0}
+
+.sheet{position:relative; max-width:68rem; margin:0 auto; background:var(--sheet); color:var(--ink); padding:clamp(24px, 5vw, 56px); box-shadow:0 8px 22px rgba(8,25,18,.45)}
+.sheet::before{content:""; position:absolute; left:0; top:-22px; width:min(42%, 300px); height:23px; background:var(--folder); border-radius:7px 7px 0 0}
+.tab{position:absolute; left:16px; top:-19px; font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft)}
+.sheet::after{content:""; position:absolute; inset:0 0 auto 0; height:6px; background:var(--folder)}
+
+.kicker{font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin:0}
+h1{font-family:var(--display); font-weight:400; font-size:clamp(1.9rem, 5vw, 3rem); line-height:1.1; margin:.3em 0 .5em; text-wrap:balance; max-width:22ch}
+.facts{display:flex; flex-wrap:wrap; gap:8px 28px; margin:0 0 8px; padding:14px 0; border-block:1px solid var(--rule)}
+.facts div{display:grid; gap:2px}
+.facts dt{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft)}
+.facts dd{margin:0; font-weight:600; font-size:15px}
+
+section.part{display:grid; grid-template-columns:1fr; gap:22px; padding-top:40px}
+section.part + section.part{border-top:1px solid var(--rule); margin-top:40px}
+.text{min-width:0; max-width:36rem}
+h2{font-family:var(--display); font-weight:400; font-size:1.5rem; line-height:1.25; margin:0 0 .5em}
+p{margin:0 0 .9em}
+ul{margin:.2em 0 1em; padding-left:1.1em}
+li{margin-bottom:.45em}
+li strong{font-weight:600}
+blockquote{margin:1.1em 0; padding-left:16px; border-left:3px solid var(--folder); font-style:italic}
+
+figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
+.shot{margin:0}
+.shot img{display:block; width:100%; height:auto; aspect-ratio:16/10; border:1px solid var(--rule); background:#fff; box-shadow:0 3px 10px rgba(31,38,34,.15)}
+.shot figcaption{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-soft); margin-top:6px}
+
+.end{margin-top:44px; padding-top:22px; border-top:1px solid var(--rule); display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:space-between}
+.end a{color:var(--link-ink); font-weight:600}
+
+.shot.tall img{aspect-ratio:auto}
+.sticky{position:sticky; top:24px}
+@media (min-width:900px){
+  section.part.has-fig{grid-template-columns:minmax(0, 1fr) minmax(0, 1.05fr); gap:44px; align-items:start}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="back" href="./#work">← Back to Pav Rao</a>
+  <p class="who">Case study</p>
+</div>
+
+<article class="sheet">
+  <span class="tab">Build</span>
+  <p class="kicker">Build · Personal project</p>
+  <h1>My AI roundup: sixteen newsletters, one email</h1>
+  <dl class="facts">
+    <div><dt>User</dt><dd>One: me</dd></div>
+    <div><dt>Arrives</dt><dd>Every Sunday</dd></div>
+    <div><dt>Built with</dt><dd>Claude and Gmail</dd></div>
+    <div><dt>Status</dt><dd>Running weekly</dd></div>
+  </dl>
+
+  <section class="part">
+    <div class="text">
+      <h2>The problem</h2>
+      <p>I started subscribing to AI newsletters and quickly found I was overwhelmed. There are sixteen now, including Superhuman, The Rundown, Simple.ai, Jeff Su and Futureproof. Each one is useful, but together they were a flood, and they were filling an inbox I try to keep as close to zero as possible.</p>
+      <h2>The user</h2>
+      <p>Me again. Specifically, me as someone learning to use AI well and moving into product management. I don't need every story. I need the few things that matter to me this week.</p>
+    </div>
+  </section>
+
+  <section class="part has-fig">
+    <div class="text">
+      <h2>What I built</h2>
+      <p>The newsletters never reach my inbox. A Gmail filter sends them straight to a folder called AI. Every Sunday, Claude reads that week's newsletters and turns them into one email. It always has the same shape:</p>
+      <ul>
+        <li><strong>If you only do one thing this week:</strong> a single, practical action.</li>
+        <li><strong>Practices worth adopting:</strong> habits and techniques, not news.</li>
+        <li><strong>Tools to know about:</strong> what's new and who it's for.</li>
+        <li><strong>Prompt worth saving:</strong> one I can copy and use.</li>
+        <li><strong>Worth knowing:</strong> a few quick headlines.</li>
+      </ul>
+      <p>If something is worth keeping, I move it to a subfolder called Interesting. Everything else is cleared automatically at the end of the week.</p>
+
+      <h2>Decisions along the way</h2>
+      <ul>
+        <li><strong>One action, first.</strong> The roundup leads with the single thing worth doing, because that's what I'd actually act on.</li>
+        <li><strong>Practices before news.</strong> Headlines go stale in a week, but a better way of working lasts.</li>
+        <li><strong>Shaped for me.</strong> It frames tips for someone moving into product management. This week, for example, it suggested adding my target role to the notes I give AI tools.</li>
+        <li><strong>Separate roundups, not one big one.</strong> When I wanted a product management roundup, with London jobs at my level, I kept it separate from the AI one, and it arrives five minutes later on Sundays. A weekly world news digest followed. Mixing them would have made each one worse.</li>
+      </ul>
+    </div>
+    <figure>
+      <div class="shot tall sticky"><img src="images/ai-roundup-email.webp" width="960" height="2537" alt="The weekly AI Roundup email for 26 October to 1 November 2026. A dark header reads: This week, make your AI know you, then let it work, from 16 newsletters. Below are sections for the one thing to do this week, practices worth adopting, tools to know about, a prompt worth saving and quick headlines." loading="lazy"><figcaption>The roundup for 26 Oct – 1 Nov 2026, slightly shortened</figcaption></div>
+    </figure>
+  </section>
+
+  <section class="part">
+    <div class="text">
+      <h2>Building it with Claude</h2>
+      <p>Claude helped me set up the whole thing, from the Gmail filter and folders to the weekly roundup itself. As with my training app, it was a conversation: I explained what I needed, we talked through the options, and I judged the results week by week.</p>
+      <h2>What changed</h2>
+      <p>It saves me time, and I'm more likely to actually read about what's happening in AI, because it arrives as one email I can get through. My inbox is a lot calmer too.</p>
+    </div>
+  </section>
+
+  <div class="end">
+    <a href="./#work">← All case studies</a>
+    <a href="./#cv">Just the CV</a>
+  </div>
+</article>
+
+</body>
+</html>
