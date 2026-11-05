@@ -113,6 +113,10 @@ section.block > p.lede{color:var(--chalk-soft); margin:0 0 20px}
 .folder dl{margin:0; display:grid; gap:8px}
 .folder dt{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft)}
 .folder dd{margin:0 0 4px}
+.folder-link{display:block; text-decoration:none; transition:transform .15s, box-shadow .15s}
+.folder-link:hover{transform:translateY(-3px) rotate(-.4deg); box-shadow:0 9px 18px rgba(8,25,18,.5)}
+.chip-go{background:#1f2622; color:#f3e6c2; border-color:#1f2622}
+@media (prefers-reduced-motion: reduce){ .folder-link{transition:none} .folder-link:hover{transform:none} }
 .chip{display:inline-block; margin-top:12px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--folder-edge); background:#f3e6c2; padding:3px 8px}
 
 /* CV: plain text on the mat, no box */
@@ -208,15 +212,15 @@ a.cval{color:var(--hi); user-select:auto}
 <section class="block" id="work">
   <h2>Case studies</h2>
   <div class="folders">
-    <article class="folder">
+    <a class="folder folder-link" href="training-app.html">
       <span class="tab">Build</span>
       <h3>My training app: when a spreadsheet stops being enough</h3>
       <dl>
         <dt>The question</dt><dd>How do you plan and log every kind of workout in one place?</dd>
         <dt>What I did</dt><dd>Built my own app with Claude, for one very demanding user: me.</dd>
       </dl>
-      <span class="chip">Write-up coming</span>
-    </article>
+      <span class="chip chip-go">Read the case study →</span>
+    </a>
     <article class="folder">
       <span class="tab">Build</span>
       <h3>World news digest: voices the Western press rarely hears</h3>

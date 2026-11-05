@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Training App · Pav Rao</title>
+<meta name="description" content="How I replaced a training spreadsheet with an app built for one user: me.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Karla:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: the case study is the training app folder opened out on the cutting mat. One paper sheet for reading; screenshots sit beside their sections on wide screens. */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+img{max-width:100%}
+:root{
+  --mat:#2f5a48; --mat-line:#3d6b58; --mat-line-strong:#4f7d69;
+  --sheet:#f6f0e1; --folder:#e8d3a0; --ink:#1f2622; --ink-soft:#5a625c; --rule:#d9cfb6;
+  --chalk:#e9f0e8; --chalk-soft:#b7cbbf; --hi:#f2d36b; --link-ink:#8b2a17;
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Karla", "Helvetica Neue", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+body{
+  background-color:var(--mat);
+  background-image:
+    linear-gradient(var(--mat-line-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-line-strong) 1px, transparent 1px),
+    linear-gradient(var(--mat-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-line) 1px, transparent 1px);
+  background-size:160px 160px,160px 160px,32px 32px,32px 32px;
+  color:var(--chalk); font-family:var(--body); font-size:17px; line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px 72px;
+}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--hi); outline-offset:2px}
+
+.top{max-width:68rem; margin:0 auto 34px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap}
+.back{font-family:var(--mono); font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--hi); text-decoration:none}
+.back:hover{text-decoration:underline}
+.who{font-family:var(--mono); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--chalk-soft); margin:0}
+
+.sheet{position:relative; max-width:68rem; margin:0 auto; background:var(--sheet); color:var(--ink); padding:clamp(24px, 5vw, 56px); box-shadow:0 8px 22px rgba(8,25,18,.45)}
+.sheet::before{content:""; position:absolute; left:0; top:-22px; width:min(42%, 300px); height:23px; background:var(--folder); border-radius:7px 7px 0 0}
+.tab{position:absolute; left:16px; top:-19px; font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft)}
+.sheet::after{content:""; position:absolute; inset:0 0 auto 0; height:6px; background:var(--folder)}
+
+.kicker{font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin:0}
+h1{font-family:var(--display); font-weight:400; font-size:clamp(1.9rem, 5vw, 3rem); line-height:1.1; margin:.3em 0 .5em; text-wrap:balance; max-width:22ch}
+.facts{display:flex; flex-wrap:wrap; gap:8px 28px; margin:0 0 8px; padding:14px 0; border-block:1px solid var(--rule)}
+.facts div{display:grid; gap:2px}
+.facts dt{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft)}
+.facts dd{margin:0; font-weight:600; font-size:15px}
+
+section.part{display:grid; grid-template-columns:1fr; gap:22px; padding-top:40px}
+section.part + section.part{border-top:1px solid var(--rule); margin-top:40px}
+.text{min-width:0; max-width:36rem}
+h2{font-family:var(--display); font-weight:400; font-size:1.5rem; line-height:1.25; margin:0 0 .5em}
+p{margin:0 0 .9em}
+ul{margin:.2em 0 1em; padding-left:1.1em}
+li{margin-bottom:.45em}
+li strong{font-weight:600}
+blockquote{margin:1.1em 0; padding-left:16px; border-left:3px solid var(--folder); font-style:italic}
+
+figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
+.shot{margin:0}
+.shot img{display:block; width:100%; height:auto; aspect-ratio:16/10; border:1px solid var(--rule); background:#fff; box-shadow:0 3px 10px rgba(31,38,34,.15)}
+.shot figcaption{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-soft); margin-top:6px}
+
+.end{margin-top:44px; padding-top:22px; border-top:1px solid var(--rule); display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:space-between}
+.end a{color:var(--link-ink); font-weight:600}
+
+@media (min-width:900px){
+  section.part.has-fig{grid-template-columns:minmax(0, 1fr) minmax(0, 1.05fr); gap:44px; align-items:start}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="back" href="./#work">← Back to Pav Rao</a>
+  <p class="who">Case study</p>
+</div>
+
+<article class="sheet">
+  <span class="tab">Build</span>
+  <p class="kicker">Build · Personal project</p>
+  <h1>My training app: when a spreadsheet stops being enough</h1>
+  <dl class="facts">
+    <div><dt>User</dt><dd>One: me</dd></div>
+    <div><dt>Platform</dt><dd>Browser, on my laptop</dd></div>
+    <div><dt>Built with</dt><dd>Claude</dd></div>
+    <div><dt>Status</dt><dd>In use, still iterating</dd></div>
+  </dl>
+
+  <section class="part has-fig">
+    <div class="text">
+      <h2>The problem</h2>
+      <p>For years I planned and logged my training in an Excel spreadsheet. It started simple, but my training didn't stay simple. HIIT, strength work with rings and kettlebells, mobility, posture work and running all needed tracking in different ways. The spreadsheet couldn't time an interval, play a technique video, or show me at a glance what I'd done that month.</p>
+      <h2>The user</h2>
+      <p>One person: me, training at home on my laptop. That sounds like a cheat, but it meant I could test every idea the next morning and know straight away whether it worked. It also meant being honest. If I stopped using a feature, it wasn't good enough.</p>
+    </div>
+    <figure>
+      <div class="shot"><img src="images/training-app-sessions.webp" width="1600" height="1000" alt="The app's Today screen, with a card for each session type: HIIT, lower body, upper body, pike and handstand work, shoulders, posture and run, plus a button to log a rest day." loading="lazy"><figcaption>Every kind of session in one place</figcaption></div>
+    </figure>
+  </section>
+
+  <section class="part has-fig">
+    <div class="text">
+      <h2>Starting small</h2>
+      <p>The first version was just a HIIT timer: warm-up, four rounds and a cool-down, at three levels (40 seconds on and 20 off, 45 and 15, and 50 and 10). It was the part of my training the spreadsheet handled worst, so it was the right place to start.</p>
+    </div>
+    <figure>
+      <div class="shot"><img src="images/training-app-hiit-setup.webp" width="1600" height="1000" alt="HIIT setup screen with three levels, beginner 40 seconds on and 20 off, intermediate 45 and 15, advanced 50 and 10, and today's plan of warm-up, HIIT and cool-down." loading="lazy"><figcaption>Choosing a level before a HIIT session</figcaption></div>
+      <div class="shot"><img src="images/training-app-hiit-timer.webp" width="1600" height="1000" alt="The HIIT timer running: a large green countdown ring at 26 seconds, the current exercise, marching high knees, with a short description, a technique video link and the next step." loading="lazy"><figcaption>The timer mid warm-up</figcaption></div>
+    </figure>
+  </section>
+
+  <section class="part has-fig">
+    <div class="text">
+      <h2>How it grew</h2>
+      <p>Every new feature came from using the app, not from a list of ideas.</p>
+      <ul>
+        <li><strong>Colour-coded intervals and audio cues,</strong> so I didn't have to keep looking at the screen mid-burpee.</li>
+        <li><strong>Technique videos linked to each exercise,</strong> drawn from a library I'd built up over years of research and YouTube.</li>
+        <li><strong>The screen stays on during a workout,</strong> so it doesn't go to sleep halfway through a round.</li>
+        <li><strong>It remembers what I lifted last time,</strong> so I know what to aim for.</li>
+        <li><strong>Separate sessions</strong> for lower body, upper body, mobility, shoulders, posture and running, each with the right fields to log.</li>
+        <li><strong>A calendar overview,</strong> colour-coded by session type, so I can see the balance of my training at a glance.</li>
+      </ul>
+    </div>
+    <figure>
+      <div class="shot"><img src="images/training-app-strength.webp" width="1600" height="1000" alt="An upper body session listing exercises such as suitcase carry, pike push-up and ab wheel roll-outs, each with sets and reps, a description, a technique video link and a field for the weight used." loading="lazy"><figcaption>A strength session, with space to log weights</figcaption></div>
+      <div class="shot"><img src="images/training-app-library.webp" width="1600" height="1000" alt="The exercise library, grouped by session, with a description and technique video for each exercise." loading="lazy"><figcaption>The exercise library</figcaption></div>
+    </figure>
+  </section>
+
+  <section class="part">
+    <div class="text">
+      <h2>What I chose not to build</h2>
+      <p>I thought about whether this should work for other people, and decided it shouldn't. The exercises are ones I chose for my own needs, not anyone else's. Opening it up would mean registration, logins and a proper way to store everyone's data, which is a lot of work for a problem nobody had asked me to solve.</p>
+      <p>I also only train at home, on my laptop. On holiday I either rest or do something simple. So there's no phone version and no syncing between devices. The app runs on my laptop, saves its data there, and can export a backup file. That's all it needs.</p>
+    </div>
+  </section>
+
+  <section class="part">
+    <div class="text">
+      <h2>Building it with Claude</h2>
+      <p>I don't write code any more, so building this was a conversation. I'd explain what I wanted and why, and Claude would often come back with questions or a few ways of doing it. We'd talk through the trade-offs, I'd pick one, and then I'd test it in a real workout.</p>
+      <p>Most features took several rounds. The HIIT timer went through a lot of versions: how the rounds were structured, how to show work, rest and warm-up so I could tell them apart from across the room, and when the audio cues should sound. If something felt wrong mid-session, I'd note it, describe it the next day, and we'd try again.</p>
+      <p>My job was deciding what was worth building, judging whether each version was right, and knowing when to stop.</p>
+      <p>Eventually I moved it to GitHub to give me version control. Every change is now saved with a short note about what changed, and if an experiment goes wrong I can roll back to a version that worked.</p>
+    </div>
+  </section>
+
+  <section class="part">
+    <div class="text">
+      <h2>What changed</h2>
+      <p>The spreadsheet is retired. Logging a workout is quicker, and comparing one week with the next is much easier. It can't stop me being lazy or too busy, but it removes the excuses that came from the tool itself.</p>
+      <h2>Still iterating</h2>
+      <p>It isn't finished, and I don't expect it to be. I keep adjusting exercises, sessions and the way progress is shown as my training changes.</p>
+    </div>
+  </section>
+
+  <div class="end">
+    <a href="./#work">← All case studies</a>
+    <a href="./#cv">Just the CV</a>
+  </div>
+</article>
+
+</body>
+</html>
