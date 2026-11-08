@@ -98,7 +98,7 @@ figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
     <div><dt>Version control</dt><dd>GitHub</dd></div>
     <div><dt>Status</dt><dd>Early days, still iterating</dd></div>
   </dl>
-  <div class="summary"><p>My training had outgrown the Excel spreadsheet I'd logged it in for years. I built a replacement with Claude for one user, me, starting with a HIIT timer and adding features only when I needed them. The key decision was what to leave out: no accounts, no phone version and no syncing, because I only train at home on my laptop.</p></div>
+  <div class="summary"><p>My training had outgrown the Excel spreadsheet I'd logged it in for years. I built a replacement with Claude for one user, me, starting with a HIIT timer and adding features only when I needed them. The key decision was what to leave out: no accounts and no phone version, because I only train at home on my laptop.</p></div>
 
   <section class="part has-fig">
     <div class="text">
@@ -146,7 +146,16 @@ figure{margin:0; min-width:0; display:grid; gap:14px; align-content:start}
     <div class="text">
       <h2>What I chose not to build</h2>
       <p>I thought about whether this should work for other people, and decided it shouldn't. The exercises are ones I chose for my own needs, not anyone else's. Opening it up would mean registration, logins and a proper way to store everyone's data, which is a lot of work for a problem nobody had asked me to solve.</p>
-      <p>I also only train at home, on my laptop. On holiday I either rest or do something simple. So there's no phone version and no syncing between devices. The app runs on my laptop, saves its data there, and can export a backup file. That's all it needs.</p>
+      <p>I also only train at home, on my laptop. On holiday I either rest or do something simple. So there's no phone version, and no need for one.</p>
+    </div>
+  </section>
+
+  <section class="part">
+    <div class="text">
+      <h2>Protecting the data</h2>
+      <p>At first, my training history lived only in the browser. That's fragile: clear the browser's data and months of logs disappear. So I looked at two options. One was saving to a file on my laptop. The other was storing the log in a private GitHub Gist, a small private file in my GitHub account.</p>
+      <p>Claude was initially hesitant about the Gist. I asked why, and it agreed there wasn't a good reason. Before going ahead I questioned the risk: what could someone do with the access token, and should it expire? The token can only read and edit my Gists, nothing else on my account, so the worst case is someone seeing my workouts. I chose no expiry so the sync wouldn't silently stop, knowing I can revoke it at any time.</p>
+      <p>Now the app loads my log from the Gist when it opens and saves to it after every session. It would also work on another computer, but that was a side effect, not the goal.</p>
     </div>
   </section>
 
