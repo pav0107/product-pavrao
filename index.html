@@ -57,6 +57,10 @@ h1 em{font-style:normal; color:var(--hi)}
 .nw{white-space:nowrap}
 .hint{font-size:14px; color:var(--chalk-soft); margin:0}
 .hint .wide{display:none}
+.ct{display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 18px; margin:.6em 0 0; font-size:14px; line-height:1.5}
+.ct a{color:var(--hi); font-weight:600; text-decoration:none}
+.ct a:hover{text-decoration:underline}
+.ct .full, .ct .ct-phone{display:none}
 
 /* Strips */
 .board{--fw:min(460px, 88vw); position:relative; margin-top:24px; margin-left:calc(-1 * var(--gl)); margin-right:calc(-1 * var(--gr))}
@@ -153,6 +157,10 @@ a.cval{color:var(--hi); user-select:auto}
   .hint .narrow{display:none}
   .hint .wide{display:inline}
   .sheet{display:none}
+  .ct{position:absolute; top:calc(64px + env(safe-area-inset-top, 0px)); right:var(--gr); margin:0; flex-direction:column; align-items:flex-end; gap:3px; font-size:13px; text-align:right}
+  .ct .short{display:none}
+  .ct .full, .ct .ct-phone{display:inline}
+  .ct-phone{color:var(--chalk)}
 }
 @keyframes flash{0%{opacity:.2; transform:translateX(-6px)} 100%{opacity:1; transform:none}}
 @media (prefers-reduced-motion: reduce){ .stamp{transition:none} .note.flash{animation:none} }
@@ -191,6 +199,14 @@ a.cval{color:var(--hi); user-select:auto}
 
 <header class="intro">
   <p class="name">Pav Rao</p>
+  <nav class="ct" aria-label="Contact and links">
+    <a href="mailto:pav0107@gmail.com"><span class="short">Email</span><span class="full">pav0107@gmail.com</span></a>
+    <span class="ct-phone">07799 113911</span>
+    <a href="https://www.linkedin.com/in/pav-rao/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/pav0107" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://pavrao.uk/" target="_blank" rel="noopener">Advertising work</a>
+    <a href="https://vimeo.com/314071085" target="_blank" rel="noopener">Stand-up</a>
+  </nav>
   <h1>I've been a developer, a copywriter, a <span class="nw">stand-up</span> comedian and a few other things. <em>Product management is where they all meet.</em></h1>
   <p class="hint"><span class="narrow">Swipe each strip to mix me up. Tap a strip to see what that life taught me.</span><span class="wide">Swipe or use the arrows to mix me up. What each strip taught me changes beside it.</span></p>
 </header>
